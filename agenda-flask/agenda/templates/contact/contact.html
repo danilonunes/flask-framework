@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Contatos{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <h1>Lista de contatos</h1>
+    <hr />
+    {% if contacts is defined %}
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.id }}: {{ contact.name }} <a href="">excluir</a></li>
+        {% endfor %}
+    </ul>
+    {% elif contact is defined %}
+    <ul>    
+        <li>{{ contact.id }}: {{ contact.name}}</li>
+    </ul>
+    {% else %}
+        Nada foi encontrado
+    {% endif %}
+    <hr />
+    <a href="{{ url_for('.include') }}">Incluir</a>
+{% endblock %}

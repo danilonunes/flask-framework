@@ -1,0 +1,9 @@
+*.pdf
+*.PDF
+*.odt
+livro
+referencias
+__pycache__
+.venv
+*.db
+*.png

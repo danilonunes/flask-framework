@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Contatos{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <h1>Incluir contato</h1>
+    <hr />
+    <form method="post">
+        <label for="name">Nome</label>
+        <input type="text" name="contactname" id="name" required>
+        <input type="submit" value="Salvar">
+    </form>
+    <hr />
+    <a href="{{ url_for('contacts.incluir') }}">Incluir</a>
+{% endblock %}
