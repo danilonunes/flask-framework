@@ -5,5 +5,5 @@ livro
 referencias
 __pycache__
 .venv
-*.db
+agenda-flask/agenda.db
 *.png
