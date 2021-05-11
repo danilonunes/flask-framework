@@ -1,24 +1,34 @@
 from flask.views import MethodView
 from agenda.models.model import Contact
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
 
-class ContactView(MethodView):
+class ConctactListDeleteView(MethodView):
+
     def get(self, contact_id):
         if contact_id is None:
             contacts = Contact.query.order_by(Contact.name).all()
             return render_template('contact/contact.html', contacts=contacts)
-        else:
-            contact = Contact.query.get(contact_id)
-            print(contact)
-            if contact:
-                return render_template('contact/contact.html', contact=contact)
-            else:
-                return render_template('contact/contact.html')
-    
-    def post(self):
-        contact = Contact.from_form_data(request.form)
-        print(contact)
-        contact.save()
-        return redirect(url_for('contacts'))
 
-contact = ContactView.as_view('contact')
+        contact = Contact.query.get(contact_id)
+        if contact:
+            return render_template('contact/contact.html', contact=contact)
+
+        return render_template('contact/contact.html')
+    
+
+class ContactCreateView(MethodView):
+
+    def get(self):
+        return render_template('contact/include.html')
+    
+    def post(self, *args, **kwargs):
+        name = request.form.get("name")
+        
+        # create model and apply on database
+        contact = Contact(name=name)
+        contact.save()
+
+        return redirect(url_for('contacts.list'))
+
+contact = ConctactListDeleteView.as_view('list')
+contact_create = ContactCreateView.as_view('create')
